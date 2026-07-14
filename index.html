@@ -146,20 +146,20 @@
             </div>
           </div>
 
-          <!-- STEP 2: HERO BANNER -->
+          <!-- STEP 2: HERO BANNERS -->
           <div class="form-step-content" data-step-content="2">
-            <h2 class="step-section-title">Bannière Héro Principale</h2>
-            <p class="step-section-subtitle">Personnalisez le slogan accrocheur et le bouton d'appel à l'action de la première bannière visible.</p>
+            <h2 class="step-section-title">Bannières Héro Principales</h2>
+            <p class="step-section-subtitle">Gérez vos bannières héro. Vous pouvez en ajouter d'autres avec le bouton (+). Pour chaque bannière, personnalisez son titre/slogan principal et le texte de son bouton.</p>
             
-            <div class="form-grid">
-              <div class="form-group full-width">
-                <label for="hero-title">Slogan Principal (Titre Hero) *</label>
-                <textarea id="hero-title" name="hero-title" placeholder="Ex: PARCE QU'ILS LE VALENT BIEN" required style="font-size: 20px; font-weight: bold; min-height: 100px;"></textarea>
-              </div>
-              <div class="form-group">
-                <label for="hero-btn-text">Libellé du Bouton (CTA) *</label>
-                <input type="text" id="hero-btn-text" name="hero-btn-text" value="" placeholder="Ex: Je découvre" required>
-              </div>
+            <div id="dynamic-heroes-container">
+              <!-- Dynamically populated via Javascript -->
+            </div>
+            
+            <div style="margin-top: 25px; display: flex; justify-content: center;">
+              <button type="button" class="btn btn-secondary" id="btn-add-hero" style="background-color: var(--brand-primary-light); color: var(--brand-primary); border-color: rgba(135, 6, 108, 0.2); font-weight: bold; width: auto; padding: 12px 24px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Ajouter une bannière Héro
+              </button>
             </div>
           </div>
 
@@ -462,17 +462,10 @@
 
     <!-- Section 2 -->
     <div class="pdf-section">
-      <h3 class="pdf-section-title">2. Bannière Héro Principale</h3>
-      <table class="pdf-table">
-        <tr>
-          <th>Slogan / Titre Héro</th>
-          <td id="pdf-val-hero-title" style="font-family: 'Playfair Display', serif; font-size: 15px; font-weight: bold; color: #87066C;"></td>
-        </tr>
-        <tr>
-          <th>Libellé Bouton CTA</th>
-          <td id="pdf-val-hero-btn-text"></td>
-        </tr>
-      </table>
+      <h3 class="pdf-section-title">2. Bannières Héro</h3>
+      <div id="pdf-val-heroes-list">
+        <!-- Populated dynamically with hero banner tables -->
+      </div>
     </div>
 
     <!-- Section 3 -->
@@ -650,6 +643,78 @@
       const progressText = document.getElementById('progress-text');
       
       // ═══════════════════════════════════════
+      // DYNAMIC HERO BANNERS DATA & LOGIC
+      // ═══════════════════════════════════════
+      const defaultHeroesData = [
+        { title: "", btnText: "" }
+      ];
+
+      const heroesContainer = document.getElementById('dynamic-heroes-container');
+
+      function createHeroBlock(heroVal = { title: '', btnText: '' }, index) {
+        const block = document.createElement('div');
+        block.className = 'hero-block';
+        block.innerHTML = `
+          <div class="hero-block-header">
+            <h4>Bannière Héro <span class="hero-number">${index}</span></h4>
+            <button type="button" class="btn-remove-category btn-remove-hero" style="display: ${index === 1 ? 'none' : 'block'};">Supprimer la bannière</button>
+          </div>
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label>Slogan Principal (Titre Hero) *</label>
+              <textarea class="hero-title-input" placeholder="Ex: PARCE QU'ILS LE VALENT BIEN" required style="font-size: 20px; font-weight: bold; min-height: 100px;">${heroVal.title}</textarea>
+            </div>
+            <div class="form-group">
+              <label>Libellé du Bouton (CTA) *</label>
+              <input type="text" class="hero-btn-text-input" value="${heroVal.btnText}" placeholder="Ex: Je découvre" required>
+            </div>
+          </div>
+        `;
+        
+        const removeBtn = block.querySelector('.btn-remove-hero');
+        if (removeBtn) {
+          removeBtn.addEventListener('click', () => {
+            block.remove();
+            recalculateHeroNumbers();
+          });
+        }
+        
+        return block;
+      }
+
+      function recalculateHeroNumbers() {
+        const blocks = heroesContainer.querySelectorAll('.hero-block');
+        blocks.forEach((block, idx) => {
+          block.querySelector('.hero-number').innerText = idx + 1;
+          const removeBtn = block.querySelector('.btn-remove-hero');
+          if (removeBtn) {
+            removeBtn.style.display = idx === 0 ? 'none' : 'block';
+          }
+        });
+      }
+
+      function initializeDynamicHeroes() {
+        heroesContainer.innerHTML = '';
+        defaultHeroesData.forEach((hero, idx) => {
+          heroesContainer.appendChild(createHeroBlock(hero, idx + 1));
+        });
+      }
+
+      document.getElementById('btn-add-hero').addEventListener('click', () => {
+        const count = heroesContainer.querySelectorAll('.hero-block').length;
+        heroesContainer.appendChild(createHeroBlock({ title: '', btnText: '' }, count + 1));
+        
+        setTimeout(() => {
+          const blocks = heroesContainer.querySelectorAll('.hero-block');
+          const lastBlock = blocks[blocks.length - 1];
+          lastBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100);
+      });
+
+      // Initialize Heroes
+      initializeDynamicHeroes();
+
+      // ═══════════════════════════════════════
       // DYNAMIC CATEGORIES & PRODUCTS DATA & LOGIC
       // ═══════════════════════════════════════
       const defaultCategoriesData = [
@@ -697,7 +762,7 @@
         block.innerHTML = `
           <div class="category-block-header">
             <h4>Catégorie <span class="cat-number">${index}</span></h4>
-            <button type="button" class="btn-remove-category">Supprimer la catégorie</button>
+            <button type="button" class="btn-remove-category" style="display: ${index === 1 ? 'none' : 'block'};">Supprimer la catégorie</button>
           </div>
           <div class="form-group" style="margin-bottom: 20px;">
             <label>Nom de la Catégorie</label>
@@ -741,6 +806,10 @@
         const blocks = categoriesContainer.querySelectorAll('.category-block');
         blocks.forEach((block, idx) => {
           block.querySelector('.cat-number').innerText = idx + 1;
+          const removeBtn = block.querySelector('.btn-remove-category');
+          if (removeBtn) {
+            removeBtn.style.display = idx === 0 ? 'none' : 'block';
+          }
         });
       }
 
@@ -762,7 +831,7 @@
         }, 100);
       });
 
-      // Initialize
+      // Initialize Categories
       initializeDynamicCategories();
 
       // ═══════════════════════════════════════
@@ -874,11 +943,8 @@
             ]
           },
           {
-            title: "2. Bannière Héro",
-            fields: [
-              { label: "Slogan principal (Héro)", key: "hero-title" },
-              { label: "Texte bouton CTA Héro", key: "hero-btn-text" }
-            ]
+            title: "2. Bannières Héro",
+            dynamicHero: true
           },
           {
             title: "3. Catégories & Produits",
@@ -948,7 +1014,42 @@
           titleH4.innerText = sec.title;
           secDiv.appendChild(titleH4);
           
-          if (sec.dynamic) {
+          if (sec.dynamicHero) {
+            const dynamicContainer = document.createElement('div');
+            dynamicContainer.style.display = 'flex';
+            dynamicContainer.style.flexDirection = 'column';
+            dynamicContainer.style.gap = '15px';
+            
+            const heroBlocks = document.querySelectorAll('.hero-block');
+            heroBlocks.forEach((block, idx) => {
+              const hTitle = block.querySelector('.hero-title-input').value;
+              const hBtnText = block.querySelector('.hero-btn-text-input').value;
+              
+              const heroGroup = document.createElement('div');
+              heroGroup.style.background = '#ffffff';
+              heroGroup.style.padding = '15px';
+              heroGroup.style.border = '1px solid #E8E8E8';
+              heroGroup.style.borderRadius = '6px';
+              
+              const heroTitle = document.createElement('strong');
+              heroTitle.style.color = 'var(--brand-accent)';
+              heroTitle.style.fontSize = '15px';
+              heroTitle.innerText = `Bannière Héro ${idx+1}`;
+              heroGroup.appendChild(heroTitle);
+              
+              const heroDetails = document.createElement('div');
+              heroDetails.style.fontSize = '13px';
+              heroDetails.style.lineHeight = '1.6';
+              heroDetails.style.marginTop = '8px';
+              heroDetails.innerHTML = `
+                <div><strong>Slogan :</strong> ${hTitle || '-'}</div>
+                <div style="margin-top:4px;"><strong>Bouton (CTA) :</strong> <span style="background:var(--brand-primary-light); color:var(--brand-primary); padding:2px 8px; border-radius:4px; font-weight:600; font-size:11px;">${hBtnText || '-'}</span></div>
+              `;
+              heroGroup.appendChild(heroDetails);
+              dynamicContainer.appendChild(heroGroup);
+            });
+            secDiv.appendChild(dynamicContainer);
+          } else if (sec.dynamic) {
             const dynamicContainer = document.createElement('div');
             dynamicContainer.style.display = 'flex';
             dynamicContainer.style.flexDirection = 'column';
@@ -1029,9 +1130,46 @@
         document.getElementById('pdf-val-promo-text').innerText = formData.get('promo-text');
         document.getElementById('pdf-val-promo-link-text').innerText = formData.get('promo-link-text');
         
-        // Step 2
-        document.getElementById('pdf-val-hero-title').innerText = formData.get('hero-title');
-        document.getElementById('pdf-val-hero-btn-text').innerText = formData.get('hero-btn-text');
+        // Step 2 (Dynamic Hero Banners)
+        const heroesList = document.getElementById('pdf-val-heroes-list');
+        heroesList.innerHTML = '';
+        
+        const heroBlocks = document.querySelectorAll('.hero-block');
+        heroBlocks.forEach((block, idx) => {
+          const hTitle = block.querySelector('.hero-title-input').value;
+          const hBtnText = block.querySelector('.hero-btn-text-input').value;
+          
+          const heroSection = document.createElement('div');
+          heroSection.style.marginBottom = '20px';
+          heroSection.style.pageBreakInside = 'avoid';
+          heroSection.style.breakInside = 'avoid';
+          
+          const title = document.createElement('h4');
+          title.style.fontFamily = 'Playfair Display, Georgia, serif';
+          title.style.fontSize = '14px';
+          title.style.color = '#C8A96E';
+          title.style.marginBottom = '8px';
+          title.style.borderBottom = '1.5px solid #C8A96E';
+          title.style.paddingBottom = '4px';
+          title.style.textTransform = 'uppercase';
+          title.innerText = `Bannière Héro ${idx+1}`;
+          heroSection.appendChild(title);
+          
+          const table = document.createElement('table');
+          table.className = 'pdf-table';
+          table.innerHTML = `
+            <tr>
+              <th style="width:30%; font-size:11px; border: 1px solid #E8E8E8; padding: 8px 10px;">Slogan / Titre Héro</th>
+              <td style="font-family: 'Playfair Display', serif; font-size:14px; font-weight:bold; color:#87066C; border: 1px solid #E8E8E8; padding: 8px 10px;">${hTitle}</td>
+            </tr>
+            <tr>
+              <th style="width:30%; font-size:11px; border: 1px solid #E8E8E8; padding: 8px 10px;">Libellé Bouton CTA</th>
+              <td style="font-size:12px; border: 1px solid #E8E8E8; padding: 8px 10px;">${hBtnText}</td>
+            </tr>
+          `;
+          heroSection.appendChild(table);
+          heroesList.appendChild(heroSection);
+        });
         
         // Step 3 (Dynamic Categories & Products)
         const categoriesList = document.getElementById('pdf-val-categories-list');

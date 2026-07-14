@@ -183,7 +183,7 @@
           <!-- STEP 4: PRODUITS FAVORIS -->
           <div class="form-step-content" data-step-content="4">
             <h2 class="step-section-title">Vos Produits Favoris</h2>
-            <p class="step-section-subtitle">Définissez le titre de cette section, les filtres d'onglets et les détails des principaux produits en avant.</p>
+            <p class="step-section-subtitle">Définissez le titre de cette section, les filtres d'onglets et les détails des principaux produits en avant. Vous pouvez en ajouter d'autres avec le bouton (+).</p>
             
             <div class="form-grid">
               <div class="form-group full-width">
@@ -196,59 +196,15 @@
               </div>
             </div>
 
-            <!-- Product Cards Inputs -->
-            <div class="product-input-card">
-              <h4>Produit Favori 1</h4>
-              <div class="form-grid">
-                <div class="form-group">
-                  <label for="prod1-name">Nom du Produit</label>
-                  <input type="text" id="prod1-name" name="prod1-name" value="" placeholder="Ex: Mascara Extension">
-                </div>
-                <div class="form-group">
-                  <label for="prod1-price">Prix</label>
-                  <input type="text" id="prod1-price" name="prod1-price" value="" placeholder="Ex: 14,90 €">
-                </div>
-                <div class="form-group full-width">
-                  <label for="prod1-shade">Couleur / Teinte / Infos</label>
-                  <input type="text" id="prod1-shade" name="prod1-shade" value="" placeholder="Ex: Couleur : Noir">
-                </div>
-              </div>
+            <div id="dynamic-favorites-container">
+              <!-- Dynamically populated via Javascript -->
             </div>
-
-            <div class="product-input-card">
-              <h4>Produit Favori 2</h4>
-              <div class="form-grid">
-                <div class="form-group">
-                  <label for="prod2-name">Nom du Produit</label>
-                  <input type="text" id="prod2-name" name="prod2-name" value="" placeholder="Ex: Revitalift Filler Masque">
-                </div>
-                <div class="form-group">
-                  <label for="prod2-price">Prix</label>
-                  <input type="text" id="prod2-price" name="prod2-price" value="" placeholder="Ex: 6,70 €">
-                </div>
-                <div class="form-group full-width">
-                  <label for="prod2-shade">Couleur / Teinte / Infos</label>
-                  <input type="text" id="prod2-shade" name="prod2-shade" value="" placeholder="Ex: 1 pièce disponible">
-                </div>
-              </div>
-            </div>
-
-            <div class="product-input-card">
-              <h4>Produit Favori 3</h4>
-              <div class="form-grid">
-                <div class="form-group">
-                  <label for="prod3-name">Nom du Produit</label>
-                  <input type="text" id="prod3-name" name="prod3-name" value="" placeholder="Ex: Encre À Lèvres Matte">
-                </div>
-                <div class="form-group">
-                  <label for="prod3-price">Prix</label>
-                  <input type="text" id="prod3-price" name="prod3-price" value="" placeholder="Ex: 12,90 €">
-                </div>
-                <div class="form-group full-width">
-                  <label for="prod3-shade">Couleur / Teinte / Infos</label>
-                  <input type="text" id="prod3-shade" name="prod3-shade" value="" placeholder="Ex: Couleur : Nuances disponibles">
-                </div>
-              </div>
+            
+            <div style="margin-top: 25px; display: flex; justify-content: center;">
+              <button type="button" class="btn btn-secondary" id="btn-add-favorite" style="background-color: var(--brand-primary-light); color: var(--brand-primary); border-color: rgba(135, 6, 108, 0.2); font-weight: bold; width: auto; padding: 12px 24px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Ajouter un produit favori
+              </button>
             </div>
           </div>
 
@@ -493,22 +449,8 @@
       </table>
       
       <h4 style="font-size: 12px; text-transform: uppercase; color: #87066C; margin-bottom: 8px;">Fiches Produits Favoris</h4>
-      <div class="pdf-product-grid">
-        <div class="pdf-product-card">
-          <h5 id="pdf-val-prod1-name"></h5>
-          <p><span>Teinte :</span> <span id="pdf-val-prod1-shade" style="font-weight: normal;"></span></p>
-          <p><span>Prix :</span> <span id="pdf-val-prod1-price" style="font-weight: normal;"></span></p>
-        </div>
-        <div class="pdf-product-card">
-          <h5 id="pdf-val-prod2-name"></h5>
-          <p><span>Teinte :</span> <span id="pdf-val-prod2-shade" style="font-weight: normal;"></span></p>
-          <p><span>Prix :</span> <span id="pdf-val-prod2-price" style="font-weight: normal;"></span></p>
-        </div>
-        <div class="pdf-product-card">
-          <h5 id="pdf-val-prod3-name"></h5>
-          <p><span>Teinte :</span> <span id="pdf-val-prod3-shade" style="font-weight: normal;"></span></p>
-          <p><span>Prix :</span> <span id="pdf-val-prod3-price" style="font-weight: normal;"></span></p>
-        </div>
+      <div class="pdf-product-grid" id="pdf-val-favs-list">
+        <!-- Populated dynamically with product cards -->
       </div>
     </div>
 
@@ -835,6 +777,82 @@
       initializeDynamicCategories();
 
       // ═══════════════════════════════════════
+      // DYNAMIC FAVORITE PRODUCTS DATA & LOGIC
+      // ═══════════════════════════════════════
+      const defaultFavoritesData = [
+        { name: "", price: "", shade: "" }
+      ];
+
+      const favoritesContainer = document.getElementById('dynamic-favorites-container');
+
+      function createFavoriteBlock(favVal = { name: '', price: '', shade: '' }, index) {
+        const block = document.createElement('div');
+        block.className = 'product-input-card favorite-block';
+        block.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px dashed var(--brand-gray-300); padding-bottom: 8px;">
+            <h4 style="margin:0; font-family:var(--font-title); color:var(--brand-primary-dark);">Produit Favori <span class="fav-number">${index}</span></h4>
+            <button type="button" class="btn-remove-category btn-remove-favorite" style="display: ${index === 1 ? 'none' : 'block'}; margin:0;">Supprimer ce produit</button>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Nom du Produit</label>
+              <input type="text" class="fav-name-input" value="${favVal.name}" placeholder="Ex: Mascara Extension" required>
+            </div>
+            <div class="form-group">
+              <label>Prix</label>
+              <input type="text" class="fav-price-input" value="${favVal.price}" placeholder="Ex: 14,90 €" required>
+            </div>
+            <div class="form-group full-width">
+              <label>Couleur / Teinte / Infos</label>
+              <input type="text" class="fav-shade-input" value="${favVal.shade}" placeholder="Ex: Couleur : Noir">
+            </div>
+          </div>
+        `;
+        
+        const removeBtn = block.querySelector('.btn-remove-favorite');
+        if (removeBtn) {
+          removeBtn.addEventListener('click', () => {
+            block.remove();
+            recalculateFavoriteNumbers();
+          });
+        }
+        
+        return block;
+      }
+
+      function recalculateFavoriteNumbers() {
+        const blocks = favoritesContainer.querySelectorAll('.favorite-block');
+        blocks.forEach((block, idx) => {
+          block.querySelector('.fav-number').innerText = idx + 1;
+          const removeBtn = block.querySelector('.btn-remove-favorite');
+          if (removeBtn) {
+            removeBtn.style.display = idx === 0 ? 'none' : 'block';
+          }
+        });
+      }
+
+      function initializeDynamicFavorites() {
+        favoritesContainer.innerHTML = '';
+        defaultFavoritesData.forEach((fav, idx) => {
+          favoritesContainer.appendChild(createFavoriteBlock(fav, idx + 1));
+        });
+      }
+
+      document.getElementById('btn-add-favorite').addEventListener('click', () => {
+        const count = favoritesContainer.querySelectorAll('.favorite-block').length;
+        favoritesContainer.appendChild(createFavoriteBlock({ name: '', price: '', shade: '' }, count + 1));
+        
+        setTimeout(() => {
+          const blocks = favoritesContainer.querySelectorAll('.favorite-block');
+          const lastBlock = blocks[blocks.length - 1];
+          lastBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100);
+      });
+
+      // Initialize Favorites
+      initializeDynamicFavorites();
+
+      // ═══════════════════════════════════════
       // STEP NAVIGATION LOGIC
       // ═══════════════════════════════════════
       
@@ -952,19 +970,7 @@
           },
           {
             title: "4. Produits Favoris",
-            fields: [
-              { label: "Titre de section", key: "prod-section-title" },
-              { label: "Onglets", key: "prod-tabs" },
-              { label: "Prod 1 - Nom", key: "prod1-name" },
-              { label: "Prod 1 - Teinte & Infos", key: "prod1-shade" },
-              { label: "Prod 1 - Prix", key: "prod1-price" },
-              { label: "Prod 2 - Nom", key: "prod2-name" },
-              { label: "Prod 2 - Teinte & Infos", key: "prod2-shade" },
-              { label: "Prod 2 - Prix", key: "prod2-price" },
-              { label: "Prod 3 - Nom", key: "prod3-name" },
-              { label: "Prod 3 - Teinte & Infos", key: "prod3-shade" },
-              { label: "Prod 3 - Prix", key: "prod3-price" }
-            ]
+            dynamicFav: true
           },
           {
             title: "5. Sélections & Combo Lèvres",
@@ -1047,6 +1053,59 @@
               `;
               heroGroup.appendChild(heroDetails);
               dynamicContainer.appendChild(heroGroup);
+            });
+            secDiv.appendChild(dynamicContainer);
+          } else if (sec.dynamicFav) {
+            const dynamicContainer = document.createElement('div');
+            dynamicContainer.style.display = 'flex';
+            dynamicContainer.style.flexDirection = 'column';
+            dynamicContainer.style.gap = '15px';
+            
+            const pSectionTitle = formData.get('prod-section-title') || '-';
+            const pTabs = formData.get('prod-tabs') || '-';
+            
+            const metaGroup = document.createElement('div');
+            metaGroup.style.background = '#fcfcfc';
+            metaGroup.style.padding = '12px 15px';
+            metaGroup.style.border = '1px solid #E8E8E8';
+            metaGroup.style.borderRadius = '6px';
+            metaGroup.innerHTML = `
+              <div style="font-size:13px; line-height:1.6;">
+                <div><strong>Titre de la Section :</strong> ${pSectionTitle}</div>
+                <div><strong>Onglets :</strong> ${pTabs}</div>
+              </div>
+            `;
+            dynamicContainer.appendChild(metaGroup);
+            
+            const favBlocks = document.querySelectorAll('.favorite-block');
+            favBlocks.forEach((block, idx) => {
+              const fName = block.querySelector('.fav-name-input').value;
+              const fPrice = block.querySelector('.fav-price-input').value;
+              const fShade = block.querySelector('.fav-shade-input').value;
+              
+              const favGroup = document.createElement('div');
+              favGroup.style.background = '#ffffff';
+              favGroup.style.padding = '15px';
+              favGroup.style.border = '1px solid #E8E8E8';
+              favGroup.style.borderRadius = '6px';
+              
+              const favTitle = document.createElement('strong');
+              favTitle.style.color = 'var(--brand-primary)';
+              favTitle.style.fontSize = '15px';
+              favTitle.innerText = `Produit Favori ${idx+1}`;
+              favGroup.appendChild(favTitle);
+              
+              const favDetails = document.createElement('div');
+              favDetails.style.fontSize = '13px';
+              favDetails.style.lineHeight = '1.6';
+              favDetails.style.marginTop = '8px';
+              favDetails.innerHTML = `
+                <div><strong>Nom :</strong> ${fName || '-'}</div>
+                <div><strong>Description / Teinte :</strong> ${fShade || '-'}</div>
+                <div><strong>Prix :</strong> <span style="font-weight:700; color:var(--brand-primary-dark);">${fPrice || '-'}</span></div>
+              `;
+              favGroup.appendChild(favDetails);
+              dynamicContainer.appendChild(favGroup);
             });
             secDiv.appendChild(dynamicContainer);
           } else if (sec.dynamic) {
@@ -1230,15 +1289,28 @@
           categoriesList.appendChild(catSection);
         });
         
-        // Step 4
+        // Step 4 (Dynamic Favorite Products)
         document.getElementById('pdf-val-prod-section-title').innerText = formData.get('prod-section-title');
         document.getElementById('pdf-val-prod-tabs').innerText = formData.get('prod-tabs');
         
-        for (let p = 1; p <= 3; p++) {
-          document.getElementById(`pdf-val-prod${p}-name`).innerText = formData.get(`prod${p}-name`);
-          document.getElementById(`pdf-val-prod${p}-shade`).innerText = formData.get(`prod${p}-shade`);
-          document.getElementById(`pdf-val-prod${p}-price`).innerText = formData.get(`prod${p}-price`);
-        }
+        const favsList = document.getElementById('pdf-val-favs-list');
+        favsList.innerHTML = '';
+        
+        const favBlocks = document.querySelectorAll('.favorite-block');
+        favBlocks.forEach(block => {
+          const fName = block.querySelector('.fav-name-input').value;
+          const fPrice = block.querySelector('.fav-price-input').value;
+          const fShade = block.querySelector('.fav-shade-input').value;
+          
+          const card = document.createElement('div');
+          card.className = 'pdf-product-card';
+          card.innerHTML = `
+            <h5>${fName}</h5>
+            <p><span>Teinte :</span> <span style="font-weight: normal;">${fShade}</span></p>
+            <p><span>Prix :</span> <span style="font-weight: normal;">${fPrice}</span></p>
+          `;
+          favsList.appendChild(card);
+        });
         
         // Step 5
         document.getElementById('pdf-val-combo-eyebrow').innerText = formData.get('combo-eyebrow');

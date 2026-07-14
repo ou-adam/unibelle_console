@@ -747,6 +747,33 @@ textarea {
   background: var(--brand-primary-light);
 }
 
+/* Dynamic Hero Banners */
+.hero-block {
+  background: var(--brand-white);
+  border: 1px solid var(--brand-gray-200);
+  border-radius: var(--border-radius-md);
+  padding: 24px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  position: relative;
+  border-left: 5px solid var(--brand-accent);
+}
+
+.hero-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  border-bottom: 1px dashed var(--brand-gray-300);
+  padding-bottom: 10px;
+}
+
+.hero-block-header h4 {
+  font-family: var(--font-title);
+  font-size: 18px;
+  color: var(--brand-primary-dark);
+}
+
 /* Responsive Grid/Flex adjustments */
 @media (max-width: 900px) {
   .workspace-panel {

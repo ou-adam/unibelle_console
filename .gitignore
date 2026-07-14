@@ -1,0 +1,12 @@
+# IDE/System files
+.gemini/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+desktop.ini

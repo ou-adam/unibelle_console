@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Configurez et exportez tout le contenu textuel de votre site web Unibelle Paris en un document PDF propre et structuré.">
+  <title>Configurateur de Contenu &amp; Export PDF — Unibelle Paris</title>
+  <link rel="stylesheet" href="formulaire.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- ═══════════════════════════════════════
+         HEADER
+         ═══════════════════════════════════════ -->
+    <header class="form-header">
+      <div class="logo-container">
+        <a href="../index.html">
+          <img src="logo-unibelle-paris-2.svg" alt="Unibelle Paris" class="logo-img">
+        </a>
+        <div class="logo-title-group">
+          <h1>Copywriting Console</h1>
+          <p>Collecte &amp; Exportation de Contenu</p>
+        </div>
+      </div>
+      <div>
+        <a href="../index.html" class="btn-back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          Retour au Site
+        </a>
+      </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════
+         MAIN WORKSPACE
+         ═══════════════════════════════════════ -->
+    <div class="workspace-panel">
+      
+      <!-- STEP NAVIGATION SIDEBAR -->
+      <aside class="step-sidebar">
+        <h3>Étapes du Site</h3>
+        <ul class="steps-list" id="steps-nav">
+          <li class="step-item active" data-step="1">
+            <div class="step-badge"><span>1</span></div>
+            <div class="step-text">
+              <span class="step-title">En-tête &amp; SEO</span>
+              <span class="step-desc">Titre, SEO, Promo bar</span>
+            </div>
+          </li>
+          <li class="step-item" data-step="2">
+            <div class="step-badge"><span>2</span></div>
+            <div class="step-text">
+              <span class="step-title">Bannière Héro</span>
+              <span class="step-desc">Titre principal et CTA</span>
+            </div>
+          </li>
+          <li class="step-item" data-step="3">
+            <div class="step-badge"><span>3</span></div>
+            <div class="step-text">
+              <span class="step-title">Catégories</span>
+              <span class="step-desc">6 sections principales</span>
+            </div>
+          </li>
+          <li class="step-item" data-step="4">
+            <div class="step-badge"><span>4</span></div>
+            <div class="step-text">
+              <span class="step-title">Produits Favoris</span>
+              <span class="step-desc">Onglets et fiches</span>
+            </div>
+          </li>
+          <li class="step-item" data-step="5">
+            <div class="step-badge"><span>5</span></div>
+            <div class="step-text">
+              <span class="step-title">Section Combo</span>
+              <span class="step-desc">Duos &amp; Bannières</span>
+            </div>
+          </li>
+          <li class="step-item" data-step="6">
+            <div class="step-badge"><span>6</span></div>
+            <div class="step-text">
+              <span class="step-title">Produit Vedette &amp; Réassurance</span>
+              <span class="step-desc">Focus, Trust Bar</span>
+            </div>
+          </li>
+          <li class="step-item" data-step="7">
+            <div class="step-badge"><span>7</span></div>
+            <div class="step-text">
+              <span class="step-title">Newsletter &amp; Footer</span>
+              <span class="step-desc">Abonnement &amp; Mentions</span>
+            </div>
+          </li>
+          <li class="step-item" data-step="8">
+            <div class="step-badge"><span>8</span></div>
+            <div class="step-text">
+              <span class="step-title">Récapitulatif &amp; Export</span>
+              <span class="step-desc">Générer le PDF final</span>
+            </div>
+          </li>
+        </ul>
+      </aside>
+
+      <!-- FORM CONTENT CARD -->
+      <main class="form-container-card">
+        
+        <!-- Progress bar -->
+        <div class="progress-bar-container">
+          <div class="progress-header">
+            <span id="progress-percentage">Étape 1 sur 8</span>
+            <span id="progress-text">12.5% Complété</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+        </div>
+
+        <!-- FORM OBJECT -->
+        <form id="content-form" onsubmit="event.preventDefault();">
+          
+          <!-- STEP 1: SEO & EN-TÊTE -->
+          <div class="form-step-content active" data-step-content="1">
+            <h2 class="step-section-title">Informations Générales &amp; En-tête</h2>
+            <p class="step-section-subtitle">Configurez le titre de l'application, les tags SEO et la barre promotionnelle tout en haut du site.</p>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="site-name">Nom de la Marque / Site</label>
+                <input type="text" id="site-name" name="site-name" value="Unibelle Paris" placeholder="Ex: Unibelle Paris" required>
+              </div>
+              <div class="form-group">
+                <label for="seo-title">Titre SEO de la page d'accueil</label>
+                <input type="text" id="seo-title" name="seo-title" value="L'Oréal Paris — Beauté pour tous" placeholder="Ex: L'Oréal Paris — Beauté pour tous">
+              </div>
+              <div class="form-group full-width">
+                <label for="seo-description">Description Meta (SEO)</label>
+                <textarea id="seo-description" name="seo-description" placeholder="Description affichée dans Google...">L'Oréal Paris — Produits de beauté, soins de la peau, maquillage, coloration et soins capillaires.</textarea>
+              </div>
+              <div class="form-group">
+                <label for="promo-text">Texte de la Barre Promotionnelle</label>
+                <input type="text" id="promo-text" name="promo-text" value="Inscrivez-vous à la newsletter ! 5€ offerts dès 25€ d'achats sur votre première commande." placeholder="Message de la promo bar">
+              </div>
+              <div class="form-group">
+                <label for="promo-link-text">Texte du Lien Promo</label>
+                <input type="text" id="promo-link-text" name="promo-link-text" value="J'en profite" placeholder="Ex: J'en profite">
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 2: HERO BANNER -->
+          <div class="form-step-content" data-step-content="2">
+            <h2 class="step-section-title">Bannière Héro Principale</h2>
+            <p class="step-section-subtitle">Personnalisez le slogan accrocheur et le bouton d'appel à l'action de la première bannière visible.</p>
+            
+            <div class="form-grid">
+              <div class="form-group full-width">
+                <label for="hero-title">Slogan Principal (Titre Hero)</label>
+                <textarea id="hero-title" name="hero-title" placeholder="Ex: PARCE QU'ILS LE VALENT BIEN" required style="font-size: 20px; font-weight: bold; min-height: 100px;">PARCE QU'ILS LE VALENT BIEN</textarea>
+              </div>
+              <div class="form-group">
+                <label for="hero-btn-text">Libellé du Bouton (CTA)</label>
+                <input type="text" id="hero-btn-text" name="hero-btn-text" value="Je découvre" placeholder="Ex: Je découvre" required>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 3: DYNAMIC CATEGORIES & PRODUCTS -->
+          <div class="form-step-content" data-step-content="3">
+            <h2 class="step-section-title">Catégories &amp; Produits</h2>
+            <p class="step-section-subtitle">Gérez vos catégories de produits. Vous pouvez en ajouter d'autres avec le bouton (+). Pour chaque catégorie, ajoutez ses produits respectifs avec leur prix et descriptif.</p>
+            
+            <div id="dynamic-categories-container">
+              <!-- Dynamically populated via Javascript -->
+            </div>
+            
+            <div style="margin-top: 25px; display: flex; justify-content: center;">
+              <button type="button" class="btn btn-secondary" id="btn-add-category" style="background-color: var(--brand-primary-light); color: var(--brand-primary); border-color: rgba(135, 6, 108, 0.2); font-weight: bold; width: auto; padding: 12px 24px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Ajouter une catégorie
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 4: PRODUITS FAVORIS -->
+          <div class="form-step-content" data-step-content="4">
+            <h2 class="step-section-title">Vos Produits Favoris</h2>
+            <p class="step-section-subtitle">Définissez le titre de cette section, les filtres d'onglets et les détails des principaux produits en avant.</p>
+            
+            <div class="form-grid">
+              <div class="form-group full-width">
+                <label for="prod-section-title">Titre de la Section</label>
+                <input type="text" id="prod-section-title" name="prod-section-title" value="VOS PRODUITS FAVORIS" placeholder="Ex: VOS PRODUITS FAVORIS" required>
+              </div>
+              <div class="form-group full-width">
+                <label for="prod-tabs">Onglets de Filtrage (Séparés par des virgules)</label>
+                <input type="text" id="prod-tabs" name="prod-tabs" value="Nouveautés, Maquillage, Soin, Cheveux, Coloration, Homme" placeholder="Onglet 1, Onglet 2...">
+              </div>
+            </div>
+
+            <!-- Product Cards Inputs -->
+            <div class="product-input-card">
+              <h4>Produit Favori 1</h4>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="prod1-name">Nom du Produit</label>
+                  <input type="text" id="prod1-name" name="prod1-name" value="Mascara Extension" placeholder="Nom">
+                </div>
+                <div class="form-group">
+                  <label for="prod1-price">Prix</label>
+                  <input type="text" id="prod1-price" name="prod1-price" value="14,90 €" placeholder="Ex: 14,90 €">
+                </div>
+                <div class="form-group full-width">
+                  <label for="prod1-shade">Couleur / Teinte / Infos</label>
+                  <input type="text" id="prod1-shade" name="prod1-shade" value="Couleur : Noir" placeholder="Ex: Couleur : Noir">
+                </div>
+              </div>
+            </div>
+
+            <div class="product-input-card">
+              <h4>Produit Favori 2</h4>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="prod2-name">Nom du Produit</label>
+                  <input type="text" id="prod2-name" name="prod2-name" value="Revitalift Filler Masque Tissu Sérum Hyaluronique" placeholder="Nom">
+                </div>
+                <div class="form-group">
+                  <label for="prod2-price">Prix</label>
+                  <input type="text" id="prod2-price" name="prod2-price" value="6,70 €" placeholder="Ex: 6,70 €">
+                </div>
+                <div class="form-group full-width">
+                  <label for="prod2-shade">Couleur / Teinte / Infos</label>
+                  <input type="text" id="prod2-shade" name="prod2-shade" value="1 pièce disponible" placeholder="Ex: 1 pièce disponible">
+                </div>
+              </div>
+            </div>
+
+            <div class="product-input-card">
+              <h4>Produit Favori 3</h4>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="prod3-name">Nom du Produit</label>
+                  <input type="text" id="prod3-name" name="prod3-name" value="Encre À Lèvres À L'Acide Hyaluronique Infaillible Matte" placeholder="Nom">
+                </div>
+                <div class="form-group">
+                  <label for="prod3-price">Prix</label>
+                  <input type="text" id="prod3-price" name="prod3-price" value="12,90 €" placeholder="Ex: 12,90 €">
+                </div>
+                <div class="form-group full-width">
+                  <label for="prod3-shade">Couleur / Teinte / Infos</label>
+                  <input type="text" id="prod3-shade" name="prod3-shade" value="Couleur : Nuances disponibles" placeholder="Ex: Couleur : Nuances disponibles">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 5: COMBO SECTION -->
+          <div class="form-step-content" data-step-content="5">
+            <h2 class="step-section-title">Section Combo Lèvres &amp; Sélections</h2>
+            <p class="step-section-subtitle">Modifiez le contenu textuel lié aux suggestions d'associations de produits (combo-lèvres) et la bannière exclusive.</p>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="combo-eyebrow">Surtitre (Eyebrow)</label>
+                <input type="text" id="combo-eyebrow" name="combo-eyebrow" value="Nos sélections" placeholder="Ex: Nos sélections" required>
+              </div>
+              <div class="form-group">
+                <label for="combo-title">Titre de la Section</label>
+                <input type="text" id="combo-title" name="combo-title" value="Trouvez votre combo-lèvres idéal" placeholder="Ex: Trouvez votre combo-lèvres..." required>
+              </div>
+              <div class="form-group full-width">
+                <label for="combo-subtitle">Sous-titre explicatif</label>
+                <input type="text" id="combo-subtitle" name="combo-subtitle" value="Découvrez nos associations parfaites pour des lèvres sublimées" placeholder="Sous-titre..." required>
+              </div>
+              <div class="form-group">
+                <label for="combo-tabs">Pillules / Onglets (Séparés par des virgules)</label>
+                <input type="text" id="combo-tabs" name="combo-tabs" value="Rouges Éternelles, Rouges Glossy, Vita Lift, La Manicure Infaillible, Colorations tendance, Collection stars, Colorations de la tendance" placeholder="Onglet 1, Onglet 2...">
+              </div>
+              <div class="form-group">
+                <label for="combo-banner-tag">Étiquette Bannière Combo</label>
+                <input type="text" id="combo-banner-tag" name="combo-banner-tag" value="Exclusivité web" placeholder="Ex: Exclusivité web">
+              </div>
+              <div class="form-group">
+                <label for="combo-banner-title">Titre Bannière Combo</label>
+                <input type="text" id="combo-banner-title" name="combo-banner-title" value="Le combo-lèvres parfait vous attend" placeholder="Ex: Le combo-lèvres parfait...">
+              </div>
+              <div class="form-group">
+                <label for="combo-banner-btn">Texte Bouton Bannière Combo</label>
+                <input type="text" id="combo-banner-btn" name="combo-banner-btn" value="Découvrir la sélection" placeholder="Ex: Découvrir la sélection">
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 6: FEATURED & REASSURANCE -->
+          <div class="form-step-content" data-step-content="6">
+            <h2 class="step-section-title">Produit Vedette &amp; Barre de Réassurance</h2>
+            <p class="step-section-subtitle">Configurez le bloc produit "phare" mis en valeur, ainsi que les 4 avantages de service de la marque.</p>
+            
+            <div class="product-input-card">
+              <h4>Produit Vedette Principal</h4>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="feat-eyebrow">Surtitre Produit</label>
+                  <input type="text" id="feat-eyebrow" name="feat-eyebrow" value="Produit phare" placeholder="Ex: Produit phare">
+                </div>
+                <div class="form-group">
+                  <label for="feat-title">Titre Bloc</label>
+                  <input type="text" id="feat-title" name="feat-title" value="Age Perfect Sérum Anti-âge Le Duo" placeholder="Nom affiché en gros">
+                </div>
+                <div class="form-group">
+                  <label for="feat-name">Description / Nom Produit 50ml</label>
+                  <input type="text" id="feat-name" name="feat-name" value="Age Perfect Sérum Anti-Âge Le Duo 50ml" placeholder="Nom commercial complet">
+                </div>
+                <div class="form-group">
+                  <label for="feat-price">Prix</label>
+                  <input type="text" id="feat-price" name="feat-price" value="53,80 €" placeholder="Ex: 53,80 €">
+                </div>
+              </div>
+            </div>
+
+            <div class="product-input-card">
+              <h4>Barre de Réassurance (4 points clés)</h4>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="trust-1-title">Titre Point 1</label>
+                  <input type="text" id="trust-1-title" name="trust-1-title" value="Paiement sécurisé" required>
+                  <input type="text" id="trust-1-desc" name="trust-1-desc" value="Par carte bancaire ou Paypal" style="margin-top: 5px; font-size: 12px;" required>
+                </div>
+                <div class="form-group">
+                  <label for="trust-2-title">Titre Point 2</label>
+                  <input type="text" id="trust-2-title" name="trust-2-title" value="Livraison offerte" required>
+                  <input type="text" id="trust-2-desc" name="trust-2-desc" value="Dès 30€ d'achat" style="margin-top: 5px; font-size: 12px;" required>
+                </div>
+                <div class="form-group">
+                  <label for="trust-3-title">Titre Point 3</label>
+                  <input type="text" id="trust-3-title" name="trust-3-title" value="Une question ? Un produit ?" required>
+                  <input type="text" id="trust-3-desc" name="trust-3-desc" value="Un conseiller beauté à votre écoute" style="margin-top: 5px; font-size: 12px;" required>
+                </div>
+                <div class="form-group">
+                  <label for="trust-4-title">Titre Point 4</label>
+                  <input type="text" id="trust-4-title" name="trust-4-title" value="Livraison offerte" required>
+                  <input type="text" id="trust-4-desc" name="trust-4-desc" value="Offerte en point relais dès 30€" style="margin-top: 5px; font-size: 12px;" required>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 7: NEWSLETTER & FOOTER -->
+          <div class="form-step-content" data-step-content="7">
+            <h2 class="step-section-title">Newsletter, Contacts &amp; Mentions</h2>
+            <p class="step-section-subtitle">Spécifiez les textes légaux, l'offre de bienvenue et les informations de contact situées en bas du site.</p>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="news-title">Titre de la Newsletter</label>
+                <input type="text" id="news-title" name="news-title" value="La Newsletter" placeholder="La Newsletter" required>
+              </div>
+              <div class="form-group">
+                <label for="news-subtitle">Sous-titre Newsletter</label>
+                <input type="text" id="news-subtitle" name="news-subtitle" value="Recevez avant tout le monde dans votre boîte mail les dernières nouveautés L'Oréal Paris, un mot d'hier, un mot d'aujourd'hui!" placeholder="Texte introductif">
+              </div>
+              <div class="form-group">
+                <label for="news-offer-1">Texte Offre de bienvenue</label>
+                <input type="text" id="news-offer-1" name="news-offer-1" value="Inscrivez-vous vite et profitez de votre offre de bienvenue.">
+              </div>
+              <div class="form-group">
+                <label for="news-offer-2">Montant de l'offre</label>
+                <input type="text" id="news-offer-2" name="news-offer-2" value="5€ offerts dès 25€ d'achats*">
+              </div>
+              <div class="form-group full-width">
+                <label for="news-legal">Mentions Légales RGPD Newsletter</label>
+                <textarea id="news-legal" name="news-legal">J'accepte que les données que je fournis soient utilisées par L'Oréal Paris pour enrichir mon profil et me proposer des offres personnalisées en conformité avec sa politique de protection des données personnelles.</textarea>
+              </div>
+              
+              <div class="form-group">
+                <label for="foot-phone">Téléphone Service Client</label>
+                <input type="text" id="foot-phone" name="foot-phone" value="Service gratuit : 04 72 95 76 95" required>
+              </div>
+              <div class="form-group">
+                <label for="foot-hours">Horaires d'ouverture</label>
+                <input type="text" id="foot-hours" name="foot-hours" value="Du lundi au vendredi de 9h à 17h (hors jours fériés)" required>
+              </div>
+              <div class="form-group full-width">
+                <label for="foot-manufacturer">Informations Fabricant &amp; Adresse</label>
+                <input type="text" id="foot-manufacturer" name="foot-manufacturer" value="LORÉAL PARIS — 14 rue Royale — 75008 Paris France" required>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 8: RECAP & EXPORT -->
+          <div class="form-step-content" data-step-content="8">
+            <h2 class="step-section-title">Vérification et Export PDF</h2>
+            <p class="step-section-subtitle">Examinez le résumé des informations saisies ci-dessous. Cliquez sur le bouton d'export pour générer un PDF professionnel prêt pour le développement.</p>
+            
+            <div class="summary-container" id="summary-dashboard">
+              <!-- Dynamically populated via Javascript -->
+            </div>
+          </div>
+
+          <!-- ACTIONS CONTROLS -->
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" id="btn-prev" disabled>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+              Précédent
+            </button>
+            
+            <button type="button" class="btn btn-primary" id="btn-next">
+              Suivant
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+            
+            <button type="button" class="btn btn-success" id="btn-export" style="display: none;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Exporter en PDF
+            </button>
+          </div>
+
+        </form>
+      </main>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       HIDDEN PRINT TEMPLATE FOR PDF GENERATION
+       ═══════════════════════════════════════ -->
+  <div id="pdf-template">
+    <div class="pdf-header">
+      <img src="logo-unibelle-paris-2.svg" alt="Unibelle Paris Logo" class="pdf-logo" id="pdf-logo-img">
+      <div class="pdf-header-title">
+        <h1 id="pdf-site-title">Unibelle Paris</h1>
+        <p>Spécifications de Contenu Textuel</p>
+      </div>
+    </div>
+    
+    <div class="pdf-doc-meta">
+      <div><strong>Document :</strong> Livrable de Contenu Éditorial</div>
+      <div><strong>Généré le :</strong> <span id="pdf-date">--/--/----</span></div>
+      <div><strong>Statut :</strong> Prêt pour intégration</div>
+    </div>
+
+    <!-- Section 1 -->
+    <div class="pdf-section">
+      <h3 class="pdf-section-title">1. Informations Générales, SEO &amp; En-tête</h3>
+      <table class="pdf-table">
+        <tr>
+          <th>Titre SEO Accueil</th>
+          <td id="pdf-val-seo-title"></td>
+        </tr>
+        <tr>
+          <th>Meta Description</th>
+          <td id="pdf-val-seo-description"></td>
+        </tr>
+        <tr>
+          <th>Barre Promotionnelle</th>
+          <td id="pdf-val-promo-text"></td>
+        </tr>
+        <tr>
+          <th>Lien Promotionnel</th>
+          <td id="pdf-val-promo-link-text"></td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="pdf-section">
+      <h3 class="pdf-section-title">2. Bannière Héro Principale</h3>
+      <table class="pdf-table">
+        <tr>
+          <th>Slogan / Titre Héro</th>
+          <td id="pdf-val-hero-title" style="font-family: 'Playfair Display', serif; font-size: 15px; font-weight: bold; color: #87066C;"></td>
+        </tr>
+        <tr>
+          <th>Libellé Bouton CTA</th>
+          <td id="pdf-val-hero-btn-text"></td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Section 3 -->
+    <div class="pdf-section">
+      <h3 class="pdf-section-title">3. Catégories &amp; Produits</h3>
+      <div id="pdf-val-categories-list">
+        <!-- Populated dynamically with category tables -->
+      </div>
+    </div>
+
+    <div class="pdf-page-break"></div>
+
+    <!-- Section 4 -->
+    <div class="pdf-section">
+      <h3 class="pdf-section-title">4. Section Produits Favoris</h3>
+      <table class="pdf-table" style="margin-bottom: 15px;">
+        <tr>
+          <th>Titre de Section</th>
+          <td id="pdf-val-prod-section-title"></td>
+        </tr>
+        <tr>
+          <th>Filtres / Onglets</th>
+          <td id="pdf-val-prod-tabs"></td>
+        </tr>
+      </table>
+      
+      <h4 style="font-size: 12px; text-transform: uppercase; color: #87066C; margin-bottom: 8px;">Fiches Produits Favoris</h4>
+      <div class="pdf-product-grid">
+        <div class="pdf-product-card">
+          <h5 id="pdf-val-prod1-name"></h5>
+          <p><span>Teinte :</span> <span id="pdf-val-prod1-shade" style="font-weight: normal;"></span></p>
+          <p><span>Prix :</span> <span id="pdf-val-prod1-price" style="font-weight: normal;"></span></p>
+        </div>
+        <div class="pdf-product-card">
+          <h5 id="pdf-val-prod2-name"></h5>
+          <p><span>Teinte :</span> <span id="pdf-val-prod2-shade" style="font-weight: normal;"></span></p>
+          <p><span>Prix :</span> <span id="pdf-val-prod2-price" style="font-weight: normal;"></span></p>
+        </div>
+        <div class="pdf-product-card">
+          <h5 id="pdf-val-prod3-name"></h5>
+          <p><span>Teinte :</span> <span id="pdf-val-prod3-shade" style="font-weight: normal;"></span></p>
+          <p><span>Prix :</span> <span id="pdf-val-prod3-price" style="font-weight: normal;"></span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 5 -->
+    <div class="pdf-section">
+      <h3 class="pdf-section-title">5. Sélections &amp; Combo Lèvres</h3>
+      <table class="pdf-table">
+        <tr>
+          <th>Surtitre &amp; Titre principal</th>
+          <td>
+            <strong id="pdf-val-combo-eyebrow" style="color: #666; font-size: 11px; text-transform: uppercase;"></strong><br>
+            <span id="pdf-val-combo-title" style="font-size: 14px; font-weight: bold;"></span>
+          </td>
+        </tr>
+        <tr>
+          <th>Sous-titre explicatif</th>
+          <td id="pdf-val-combo-subtitle"></td>
+        </tr>
+        <tr>
+          <th>Onglets du Combo</th>
+          <td id="pdf-val-combo-tabs"></td>
+        </tr>
+        <tr>
+          <th>Bannière promotionnelle Combo</th>
+          <td>
+            <strong>Badge :</strong> <span id="pdf-val-combo-banner-tag"></span><br>
+            <strong>Titre :</strong> <span id="pdf-val-combo-banner-title"></span><br>
+            <strong>Bouton :</strong> <span id="pdf-val-combo-banner-btn"></span>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="pdf-page-break"></div>
+
+    <!-- Section 6 -->
+    <div class="pdf-section">
+      <h3 class="pdf-section-title">6. Produit Vedette &amp; Barre de Réassurance</h3>
+      <h4 style="font-size: 12px; text-transform: uppercase; color: #87066C; margin-bottom: 8px;">Produit Vedette</h4>
+      <table class="pdf-table" style="margin-bottom: 20px;">
+        <tr>
+          <th>Produit mis en avant</th>
+          <td>
+            <span id="pdf-val-feat-eyebrow" style="text-transform: uppercase; font-size: 11px; color:#777;"></span><br>
+            <strong id="pdf-val-feat-title" style="font-size: 14px;"></strong><br>
+            <span id="pdf-val-feat-name"></span>
+          </td>
+        </tr>
+        <tr>
+          <th>Prix Vedette</th>
+          <td id="pdf-val-feat-price" style="font-weight: bold;"></td>
+        </tr>
+      </table>
+      
+      <h4 style="font-size: 12px; text-transform: uppercase; color: #87066C; margin-bottom: 8px;">Barre de Réassurance (Trust Bar)</h4>
+      <table class="pdf-table">
+        <tr>
+          <th id="pdf-val-trust-1-title"></th>
+          <td id="pdf-val-trust-1-desc"></td>
+        </tr>
+        <tr>
+          <th id="pdf-val-trust-2-title"></th>
+          <td id="pdf-val-trust-2-desc"></td>
+        </tr>
+        <tr>
+          <th id="pdf-val-trust-3-title"></th>
+          <td id="pdf-val-trust-3-desc"></td>
+        </tr>
+        <tr>
+          <th id="pdf-val-trust-4-title"></th>
+          <td id="pdf-val-trust-4-desc"></td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Section 7 -->
+    <div class="pdf-section">
+      <h3 class="pdf-section-title">7. Newsletter &amp; Pied de page</h3>
+      <table class="pdf-table">
+        <tr>
+          <th>Newsletter Titre &amp; Message</th>
+          <td>
+            <strong id="pdf-val-news-title"></strong><br>
+            <span id="pdf-val-news-subtitle"></span>
+          </td>
+        </tr>
+        <tr>
+          <th>Offre de bienvenue</th>
+          <td>
+            <span id="pdf-val-news-offer-1"></span> — <strong><span id="pdf-val-news-offer-2"></span></strong>
+          </td>
+        </tr>
+        <tr>
+          <th>Mentions légales RGPD</th>
+          <td id="pdf-val-news-legal" style="font-size: 11px; color: #666; font-style: italic;"></td>
+        </tr>
+        <tr>
+          <th>Contacts Client &amp; Horaires</th>
+          <td>
+            <strong>Téléphone :</strong> <span id="pdf-val-foot-phone"></span><br>
+            <strong>Horaires :</strong> <span id="pdf-val-foot-hours"></span>
+          </td>
+        </tr>
+        <tr>
+          <th>Fabricant &amp; Adresse</th>
+          <td id="pdf-val-foot-manufacturer"></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="pdf-footer">
+      Document généré par la console de copywriting Unibelle Paris. Tous droits réservés.
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════
+       JAVASCRIPT FOR STEP NAVIGATION & PDF EXPORT
+       ═══════════════════════════════════════ -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      let currentStep = 1;
+      const totalSteps = 8;
+      
+      const prevBtn = document.getElementById('btn-prev');
+      const nextBtn = document.getElementById('btn-next');
+      const exportBtn = document.getElementById('btn-export');
+      const stepsNavItems = document.querySelectorAll('#steps-nav .step-item');
+      const stepContents = document.querySelectorAll('[data-step-content]');
+      const progressFill = document.getElementById('progress-fill');
+      const progressPercentage = document.getElementById('progress-percentage');
+      const progressText = document.getElementById('progress-text');
+      
+      // ═══════════════════════════════════════
+      // DYNAMIC CATEGORIES & PRODUCTS DATA & LOGIC
+      // ═══════════════════════════════════════
+      const defaultCategoriesData = [
+        {
+          name: "Maquillage",
+          products: [
+            { name: "Mascara Panorama", price: "15,90 €", details: "Volume Millions de Cils" },
+            { name: "Rouge à lèvres Color Riche", price: "13,80 €", details: "Teinte : Nude 120" },
+            { name: "Fond De Teint Accord Parfait", price: "14,90 €", details: "Couleur : Miel" }
+          ]
+        },
+        {
+          name: "Cheveux",
+          products: [
+            { name: "Elsève Dream Long Shampoing", price: "5,50 €", details: "Cheveux longs abîmés" },
+            { name: "Shampoing Elsève Total Repair", price: "5,50 €", details: "Réparation 5 signes" }
+          ]
+        },
+        {
+          name: "Soin de la peau",
+          products: [
+            { name: "Revitalift Filler Sérum", price: "19,90 €", details: "Acide Hyaluronique Pur" },
+            { name: "Revitalift Crème de Jour", price: "17,90 €", details: "Soin Anti-Rides + Fermeté" }
+          ]
+        }
+      ];
+
+      const categoriesContainer = document.getElementById('dynamic-categories-container');
+
+      function createProductRow(prodVal = { name: '', price: '', details: '' }) {
+        const row = document.createElement('div');
+        row.className = 'category-product-item';
+        row.innerHTML = `
+          <div class="product-item-fields">
+            <div class="form-group">
+              <label>Nom du Produit</label>
+              <input type="text" class="prod-name" value="${prodVal.name}" placeholder="Ex: Mascara Extension" required>
+            </div>
+            <div class="form-group">
+              <label>Prix</label>
+              <input type="text" class="prod-price" value="${prodVal.price}" placeholder="Ex: 14,90 €" required>
+            </div>
+            <div class="form-group full-width">
+              <label>Description / Teinte</label>
+              <input type="text" class="prod-details" value="${prodVal.details}" placeholder="Ex: Couleur : Noir">
+            </div>
+          </div>
+          <button type="button" class="btn-remove-product" title="Supprimer ce produit">&times;</button>
+        `;
+        
+        row.querySelector('.btn-remove-product').addEventListener('click', () => {
+          row.remove();
+        });
+        
+        return row;
+      }
+
+      function createCategoryBlock(catVal = { name: '', products: [] }, index) {
+        const block = document.createElement('div');
+        block.className = 'category-block';
+        block.innerHTML = `
+          <div class="category-block-header">
+            <h4>Catégorie <span class="cat-number">${index}</span></h4>
+            <button type="button" class="btn-remove-category">Supprimer la catégorie</button>
+          </div>
+          <div class="form-group" style="margin-bottom: 20px;">
+            <label>Nom de la Catégorie</label>
+            <input type="text" class="category-name-input" value="${catVal.name}" placeholder="Ex: Maquillage" required style="font-weight: 600; font-size: 16px; border-color: var(--brand-primary-light);">
+          </div>
+          <div class="category-products-section">
+            <h5>Produits dans cette catégorie</h5>
+            <div class="category-products-list"></div>
+            <button type="button" class="btn-add-product">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              Ajouter un produit
+            </button>
+          </div>
+        `;
+        
+        const prodList = block.querySelector('.category-products-list');
+        const addProdBtn = block.querySelector('.btn-add-product');
+        const removeCatBtn = block.querySelector('.btn-remove-category');
+        
+        if (catVal.products && catVal.products.length > 0) {
+          catVal.products.forEach(p => {
+            prodList.appendChild(createProductRow(p));
+          });
+        } else {
+          prodList.appendChild(createProductRow());
+        }
+        
+        addProdBtn.addEventListener('click', () => {
+          prodList.appendChild(createProductRow());
+        });
+        
+        removeCatBtn.addEventListener('click', () => {
+          block.remove();
+          recalculateCategoryNumbers();
+        });
+        
+        return block;
+      }
+
+      function recalculateCategoryNumbers() {
+        const blocks = categoriesContainer.querySelectorAll('.category-block');
+        blocks.forEach((block, idx) => {
+          block.querySelector('.cat-number').innerText = idx + 1;
+        });
+      }
+
+      function initializeDynamicCategories() {
+        categoriesContainer.innerHTML = '';
+        defaultCategoriesData.forEach((cat, idx) => {
+          categoriesContainer.appendChild(createCategoryBlock(cat, idx + 1));
+        });
+      }
+
+      document.getElementById('btn-add-category').addEventListener('click', () => {
+        const count = categoriesContainer.querySelectorAll('.category-block').length;
+        categoriesContainer.appendChild(createCategoryBlock({ name: '', products: [] }, count + 1));
+        
+        setTimeout(() => {
+          const blocks = categoriesContainer.querySelectorAll('.category-block');
+          const lastBlock = blocks[blocks.length - 1];
+          lastBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100);
+      });
+
+      // Initialize
+      initializeDynamicCategories();
+
+      // ═══════════════════════════════════════
+      // STEP NAVIGATION LOGIC
+      // ═══════════════════════════════════════
+      
+      // Update UI for the current step
+      function updateStepUI() {
+        stepContents.forEach(content => {
+          content.classList.remove('active');
+          if (parseInt(content.getAttribute('data-step-content')) === currentStep) {
+            content.classList.add('active');
+          }
+        });
+        
+        stepsNavItems.forEach(item => {
+          const stepNum = parseInt(item.getAttribute('data-step'));
+          item.classList.remove('active');
+          
+          if (stepNum === currentStep) {
+            item.classList.add('active');
+          }
+          
+          if (stepNum < currentStep) {
+            item.classList.add('completed');
+          } else {
+            item.classList.remove('completed');
+          }
+        });
+        
+        const percent = (currentStep / totalSteps) * 100;
+        progressFill.style.width = percent + '%';
+        progressPercentage.innerText = `Étape ${currentStep} sur ${totalSteps}`;
+        progressText.innerText = `${Math.round(percent)}% Complété`;
+        
+        if (currentStep === 1) {
+          prevBtn.disabled = true;
+        } else {
+          prevBtn.disabled = false;
+        }
+        
+        if (currentStep === totalSteps) {
+          nextBtn.style.display = 'none';
+          exportBtn.style.display = 'inline-flex';
+          buildRecapDashboard();
+        } else {
+          nextBtn.style.display = 'inline-flex';
+          exportBtn.style.display = 'none';
+        }
+      }
+      
+      function goToStep(step) {
+        if (step >= 1 && step <= totalSteps) {
+          currentStep = step;
+          updateStepUI();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }
+      
+      prevBtn.addEventListener('click', () => {
+        goToStep(currentStep - 1);
+      });
+      
+      nextBtn.addEventListener('click', () => {
+        const currentContent = document.querySelector(`[data-step-content="${currentStep}"]`);
+        const inputs = currentContent.querySelectorAll('input[required], textarea[required]');
+        let valid = true;
+        inputs.forEach(input => {
+          if (!input.value.trim()) {
+            input.classList.add('error');
+            valid = false;
+            input.style.borderColor = '#d32f2f';
+          } else {
+            input.classList.remove('error');
+            input.style.borderColor = '';
+          }
+        });
+        
+        if (valid) {
+          goToStep(currentStep + 1);
+        } else {
+          alert('Veuillez remplir tous les champs requis (*) de cette section avant de continuer.');
+        }
+      });
+      
+      stepsNavItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const stepNum = parseInt(item.getAttribute('data-step'));
+          goToStep(stepNum);
+        });
+      });
+      
+      // Build dynamic recap dashboard
+      function buildRecapDashboard() {
+        const dashboard = document.getElementById('summary-dashboard');
+        dashboard.innerHTML = '';
+        
+        const formData = new FormData(document.getElementById('content-form'));
+        
+        const sections = [
+          {
+            title: "1. En-tête & SEO",
+            fields: [
+              { label: "Nom du site/marque", key: "site-name" },
+              { label: "Titre SEO page d'accueil", key: "seo-title" },
+              { label: "Description SEO (Meta)", key: "seo-description" },
+              { label: "Message promotionnel", key: "promo-text" },
+              { label: "Lien promotionnel", key: "promo-link-text" }
+            ]
+          },
+          {
+            title: "2. Bannière Héro",
+            fields: [
+              { label: "Slogan principal (Héro)", key: "hero-title" },
+              { label: "Texte bouton CTA Héro", key: "hero-btn-text" }
+            ]
+          },
+          {
+            title: "3. Catégories & Produits",
+            dynamic: true
+          },
+          {
+            title: "4. Produits Favoris",
+            fields: [
+              { label: "Titre de section", key: "prod-section-title" },
+              { label: "Onglets", key: "prod-tabs" },
+              { label: "Prod 1 - Nom", key: "prod1-name" },
+              { label: "Prod 1 - Teinte & Infos", key: "prod1-shade" },
+              { label: "Prod 1 - Prix", key: "prod1-price" },
+              { label: "Prod 2 - Nom", key: "prod2-name" },
+              { label: "Prod 2 - Teinte & Infos", key: "prod2-shade" },
+              { label: "Prod 2 - Prix", key: "prod2-price" },
+              { label: "Prod 3 - Nom", key: "prod3-name" },
+              { label: "Prod 3 - Teinte & Infos", key: "prod3-shade" },
+              { label: "Prod 3 - Prix", key: "prod3-price" }
+            ]
+          },
+          {
+            title: "5. Sélections & Combo Lèvres",
+            fields: [
+              { label: "Surtitre", key: "combo-eyebrow" },
+              { label: "Titre Section", key: "combo-title" },
+              { label: "Sous-titre Section", key: "combo-subtitle" },
+              { label: "Onglets du combo", key: "combo-tabs" },
+              { label: "Badge Bannière Combo", key: "combo-banner-tag" },
+              { label: "Titre Bannière Combo", key: "combo-banner-title" },
+              { label: "Bouton Bannière Combo", key: "combo-banner-btn" }
+            ]
+          },
+          {
+            title: "6. Produit Vedette & Réassurance",
+            fields: [
+              { label: "Vedette - Surtitre", key: "feat-eyebrow" },
+              { label: "Vedette - Titre", key: "feat-title" },
+              { label: "Vedette - Desc/Nom 50ml", key: "feat-name" },
+              { label: "Vedette - Prix", key: "feat-price" },
+              { label: "Trust 1 - Titre & Desc", key: "trust-1-title", custom: () => formData.get('trust-1-title') + " — " + formData.get('trust-1-desc') },
+              { label: "Trust 2 - Titre & Desc", key: "trust-2-title", custom: () => formData.get('trust-2-title') + " — " + formData.get('trust-2-desc') },
+              { label: "Trust 3 - Titre & Desc", key: "trust-3-title", custom: () => formData.get('trust-3-title') + " — " + formData.get('trust-3-desc') },
+              { label: "Trust 4 - Titre & Desc", key: "trust-4-title", custom: () => formData.get('trust-4-title') + " — " + formData.get('trust-4-desc') }
+            ]
+          },
+          {
+            title: "7. Newsletter & Pied de page",
+            fields: [
+              { label: "Titre Newsletter", key: "news-title" },
+              { label: "Sous-titre Newsletter", key: "news-subtitle" },
+              { label: "Offre intro", key: "news-offer-1" },
+              { label: "Montant offre", key: "news-offer-2" },
+              { label: "Texte Légal RGPD", key: "news-legal" },
+              { label: "Service Client Tél", key: "foot-phone" },
+              { label: "Horaires d'ouverture", key: "foot-hours" },
+              { label: "Fabricant", key: "foot-manufacturer" }
+            ]
+          }
+        ];
+        
+        sections.forEach(sec => {
+          const secDiv = document.createElement('div');
+          secDiv.className = 'summary-section';
+          
+          const titleH4 = document.createElement('h4');
+          titleH4.innerText = sec.title;
+          secDiv.appendChild(titleH4);
+          
+          if (sec.dynamic) {
+            const dynamicContainer = document.createElement('div');
+            dynamicContainer.style.display = 'flex';
+            dynamicContainer.style.flexDirection = 'column';
+            dynamicContainer.style.gap = '15px';
+            
+            const categoryBlocks = document.querySelectorAll('.category-block');
+            categoryBlocks.forEach((block, idx) => {
+              const catNameInput = block.querySelector('.category-name-input');
+              const catName = catNameInput ? catNameInput.value : '';
+              
+              const catGroup = document.createElement('div');
+              catGroup.style.background = '#ffffff';
+              catGroup.style.padding = '15px';
+              catGroup.style.border = '1px solid #E8E8E8';
+              catGroup.style.borderRadius = '6px';
+              
+              const catTitle = document.createElement('strong');
+              catTitle.style.color = 'var(--brand-primary)';
+              catTitle.style.fontSize = '15px';
+              catTitle.innerText = `Catégorie ${idx+1} : ${catName}`;
+              catGroup.appendChild(catTitle);
+              
+              const prodListUl = document.createElement('ul');
+              prodListUl.style.margin = '10px 0 0 20px';
+              prodListUl.style.fontSize = '13px';
+              prodListUl.style.lineHeight = '1.8';
+              
+              const prods = block.querySelectorAll('.category-product-item');
+              prods.forEach(prodItem => {
+                const pName = prodItem.querySelector('.prod-name').value;
+                const pPrice = prodItem.querySelector('.prod-price').value;
+                const pDetails = prodItem.querySelector('.prod-details').value;
+                
+                const li = document.createElement('li');
+                li.innerHTML = `<strong>${pName}</strong> — <span style="color:#666;">${pDetails}</span> — <span style="font-weight:700; color:var(--brand-primary-dark);">${pPrice}</span>`;
+                prodListUl.appendChild(li);
+              });
+              
+              catGroup.appendChild(prodListUl);
+              dynamicContainer.appendChild(catGroup);
+            });
+            secDiv.appendChild(dynamicContainer);
+          } else {
+            const gridDiv = document.createElement('div');
+            gridDiv.className = 'summary-grid';
+            
+            sec.fields.forEach(f => {
+              const labelSpan = document.createElement('span');
+              labelSpan.className = 'summary-label';
+              labelSpan.innerText = f.label;
+              
+              const valueSpan = document.createElement('span');
+              valueSpan.className = 'summary-value';
+              valueSpan.innerText = f.custom ? f.custom() : (formData.get(f.key) || '-');
+              
+              gridDiv.appendChild(labelSpan);
+              gridDiv.appendChild(valueSpan);
+            });
+            secDiv.appendChild(gridDiv);
+          }
+          
+          dashboard.appendChild(secDiv);
+        });
+      }
+      
+      // PDF print triggering function
+      exportBtn.addEventListener('click', function() {
+        const formData = new FormData(document.getElementById('content-form'));
+        const siteName = formData.get('site-name') || 'Unibelle Paris';
+        
+        // 1. Populate Hidden PDF template elements
+        document.getElementById('pdf-site-title').innerText = siteName;
+        document.getElementById('pdf-date').innerText = new Date().toLocaleDateString('fr-FR');
+        
+        // Step 1
+        document.getElementById('pdf-val-seo-title').innerText = formData.get('seo-title');
+        document.getElementById('pdf-val-seo-description').innerText = formData.get('seo-description');
+        document.getElementById('pdf-val-promo-text').innerText = formData.get('promo-text');
+        document.getElementById('pdf-val-promo-link-text').innerText = formData.get('promo-link-text');
+        
+        // Step 2
+        document.getElementById('pdf-val-hero-title').innerText = formData.get('hero-title');
+        document.getElementById('pdf-val-hero-btn-text').innerText = formData.get('hero-btn-text');
+        
+        // Step 3 (Dynamic Categories & Products)
+        const categoriesList = document.getElementById('pdf-val-categories-list');
+        categoriesList.innerHTML = '';
+        
+        const categoryBlocks = document.querySelectorAll('.category-block');
+        categoryBlocks.forEach((block, idx) => {
+          const catNameInput = block.querySelector('.category-name-input');
+          const catName = catNameInput ? catNameInput.value : '';
+          
+          const catSection = document.createElement('div');
+          catSection.style.marginBottom = '20px';
+          catSection.style.pageBreakInside = 'avoid';
+          catSection.style.breakInside = 'avoid';
+          
+          const catTitle = document.createElement('h4');
+          catTitle.style.fontFamily = 'Playfair Display, Georgia, serif';
+          catTitle.style.fontSize = '14px';
+          catTitle.style.color = '#87066C';
+          catTitle.style.marginBottom = '8px';
+          catTitle.style.borderBottom = '1.5px solid #87066C';
+          catTitle.style.paddingBottom = '4px';
+          catTitle.style.textTransform = 'uppercase';
+          catTitle.innerText = `Catégorie ${idx+1} : ${catName}`;
+          catSection.appendChild(catTitle);
+          
+          const table = document.createElement('table');
+          table.className = 'pdf-table';
+          table.innerHTML = `
+            <thead>
+              <tr style="background:#F9F9F9;">
+                <th style="width:40%; font-size:10px; font-weight:700; border: 1px solid #E8E8E8; padding: 6px 10px;">Nom du Produit</th>
+                <th style="width:45%; font-size:10px; font-weight:700; border: 1px solid #E8E8E8; padding: 6px 10px;">Détails / Teinte</th>
+                <th style="width:15%; font-size:10px; font-weight:700; border: 1px solid #E8E8E8; padding: 6px 10px;">Prix</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          `;
+          const tbody = table.querySelector('tbody');
+          
+          const prods = block.querySelectorAll('.category-product-item');
+          prods.forEach(prodItem => {
+            const pName = prodItem.querySelector('.prod-name').value;
+            const pPrice = prodItem.querySelector('.prod-price').value;
+            const pDetails = prodItem.querySelector('.prod-details').value;
+            
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td style="font-weight:600; font-size:12px; border: 1px solid #E8E8E8; padding: 8px 10px;">${pName}</td>
+              <td style="font-size:12px; border: 1px solid #E8E8E8; padding: 8px 10px;">${pDetails}</td>
+              <td style="font-weight:600; font-size:12px; border: 1px solid #E8E8E8; padding: 8px 10px; color:#87066C;">${pPrice}</td>
+            `;
+            tbody.appendChild(tr);
+          });
+          
+          catSection.appendChild(table);
+          categoriesList.appendChild(catSection);
+        });
+        
+        // Step 4
+        document.getElementById('pdf-val-prod-section-title').innerText = formData.get('prod-section-title');
+        document.getElementById('pdf-val-prod-tabs').innerText = formData.get('prod-tabs');
+        
+        for (let p = 1; p <= 3; p++) {
+          document.getElementById(`pdf-val-prod${p}-name`).innerText = formData.get(`prod${p}-name`);
+          document.getElementById(`pdf-val-prod${p}-shade`).innerText = formData.get(`prod${p}-shade`);
+          document.getElementById(`pdf-val-prod${p}-price`).innerText = formData.get(`prod${p}-price`);
+        }
+        
+        // Step 5
+        document.getElementById('pdf-val-combo-eyebrow').innerText = formData.get('combo-eyebrow');
+        document.getElementById('pdf-val-combo-title').innerText = formData.get('combo-title');
+        document.getElementById('pdf-val-combo-subtitle').innerText = formData.get('combo-subtitle');
+        document.getElementById('pdf-val-combo-tabs').innerText = formData.get('combo-tabs');
+        document.getElementById('pdf-val-combo-banner-tag').innerText = formData.get('combo-banner-tag');
+        document.getElementById('pdf-val-combo-banner-title').innerText = formData.get('combo-banner-title');
+        document.getElementById('pdf-val-combo-banner-btn').innerText = formData.get('combo-banner-btn');
+        
+        // Step 6
+        document.getElementById('pdf-val-feat-eyebrow').innerText = formData.get('feat-eyebrow');
+        document.getElementById('pdf-val-feat-title').innerText = formData.get('feat-title');
+        document.getElementById('pdf-val-feat-name').innerText = formData.get('feat-name');
+        document.getElementById('pdf-val-feat-price').innerText = formData.get('feat-price');
+        
+        for (let t = 1; t <= 4; t++) {
+          document.getElementById(`pdf-val-trust-${t}-title`).innerText = formData.get(`trust-${t}-title`);
+          document.getElementById(`pdf-val-trust-${t}-desc`).innerText = formData.get(`trust-${t}-desc`);
+        }
+        
+        // Step 7
+        document.getElementById('pdf-val-news-title').innerText = formData.get('news-title');
+        document.getElementById('pdf-val-news-subtitle').innerText = formData.get('news-subtitle');
+        document.getElementById('pdf-val-news-offer-1').innerText = formData.get('news-offer-1');
+        document.getElementById('pdf-val-news-offer-2').innerText = formData.get('news-offer-2');
+        document.getElementById('pdf-val-news-legal').innerText = formData.get('news-legal');
+        document.getElementById('pdf-val-foot-phone').innerText = formData.get('foot-phone');
+        document.getElementById('pdf-val-foot-hours').innerText = formData.get('foot-hours');
+        document.getElementById('pdf-val-foot-manufacturer').innerText = formData.get('foot-manufacturer');
+        
+        // 2. Trigger browser print dialog (saves to high-quality vector PDF)
+        window.print();
+      });
+      
+    });
+  </script>
+</body>
+</html>

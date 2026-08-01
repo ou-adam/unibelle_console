@@ -24,7 +24,24 @@
           <p>Collecte &amp; Exportation de Contenu</p>
         </div>
       </div>
-      <div>
+      <div class="header-actions">
+        <div id="save-status" class="save-status-badge">
+          <span class="save-status-dot"></span>
+          <span id="save-status-text">Sauvegarde auto active</span>
+        </div>
+        <button type="button" id="btn-export-json" class="btn-draft-action" title="Exporter le brouillon au format JSON">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Exporter Brouillon
+        </button>
+        <button type="button" id="btn-import-json" class="btn-draft-action" title="Importer un fichier de brouillon JSON">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          Importer
+        </button>
+        <input type="file" id="import-json-file" accept=".json" style="display: none;">
+        <button type="button" id="btn-reset-all" class="btn-reset-all" title="Effacer toutes les informations et recommencer à zéro">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>
+          Tout effacer
+        </button>
         <a href="../index.html" class="btn-back">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
           Retour au Site
@@ -358,6 +375,16 @@
               Précédent
             </button>
             
+            <button type="button" id="btn-reset-step" class="btn-reset-step" title="Effacer uniquement les saisies de cette étape">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+              Effacer cette étape
+            </button>
+            
+            <button type="button" id="btn-save-step" class="btn-save-step" title="Enregistrer manuellement les informations de cette étape">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+              Enregistrer la section
+            </button>
+            
             <button type="button" class="btn btn-primary" id="btn-next">
               Suivant
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
@@ -583,7 +610,271 @@
       const progressFill = document.getElementById('progress-fill');
       const progressPercentage = document.getElementById('progress-percentage');
       const progressText = document.getElementById('progress-text');
-      
+
+      // ═══════════════════════════════════════
+      // AUTO-SAVE & DRAFT MANAGEMENT (LOCALSTORAGE)
+      // ═══════════════════════════════════════
+      const STORAGE_KEY = 'unibelle_console_draft_v1';
+      const contentForm = document.getElementById('content-form');
+      const saveStatus = document.getElementById('save-status');
+      const saveStatusText = document.getElementById('save-status-text');
+      const btnResetAll = document.getElementById('btn-reset-all');
+      const btnResetStep = document.getElementById('btn-reset-step');
+      const btnSaveStep = document.getElementById('btn-save-step');
+      const btnExportJson = document.getElementById('btn-export-json');
+      const btnImportJson = document.getElementById('btn-import-json');
+      const importJsonFile = document.getElementById('import-json-file');
+
+      let saveTimeout = null;
+
+      function updateSaveStatus(message, isSaving = false) {
+        if (saveStatusText) saveStatusText.innerText = message;
+        if (saveStatus) {
+          if (isSaving) {
+            saveStatus.classList.add('saving');
+          } else {
+            saveStatus.classList.remove('saving');
+          }
+        }
+      }
+
+      function saveToLocalStorage() {
+        updateSaveStatus('Enregistrement...', true);
+        
+        try {
+          const fieldsData = {};
+          if (contentForm) {
+            const formInputs = contentForm.querySelectorAll('input[name], textarea[name], select[name]');
+            formInputs.forEach(input => {
+              fieldsData[input.name] = input.value;
+            });
+          }
+
+          // Dynamic Heroes
+          const heroesData = [];
+          document.querySelectorAll('.hero-block').forEach(block => {
+            heroesData.push({
+              title: block.querySelector('.hero-title-input')?.value || '',
+              btnText: block.querySelector('.hero-btn-text-input')?.value || ''
+            });
+          });
+
+          // Dynamic Categories
+          const categoriesData = [];
+          document.querySelectorAll('.category-block').forEach(block => {
+            const catName = block.querySelector('.category-name-input')?.value || '';
+            const prods = [];
+            block.querySelectorAll('.category-product-item').forEach(item => {
+              prods.push({
+                name: item.querySelector('.prod-name')?.value || '',
+                price: item.querySelector('.prod-price')?.value || '',
+                details: item.querySelector('.prod-details')?.value || ''
+              });
+            });
+            categoriesData.push({ name: catName, products: prods });
+          });
+
+          // Dynamic Favorites
+          const favoritesData = [];
+          document.querySelectorAll('.favorite-block').forEach(block => {
+            favoritesData.push({
+              name: block.querySelector('.fav-name-input')?.value || '',
+              price: block.querySelector('.fav-price-input')?.value || '',
+              shade: block.querySelector('.fav-shade-input')?.value || ''
+            });
+          });
+
+          const draftObj = {
+            timestamp: new Date().toISOString(),
+            currentStep: currentStep,
+            fields: fieldsData,
+            heroes: heroesData,
+            categories: categoriesData,
+            favorites: favoritesData
+          };
+
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(draftObj));
+
+          const timeStr = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          setTimeout(() => {
+            updateSaveStatus(`Brouillon sauvegardé (${timeStr})`, false);
+          }, 250);
+
+        } catch (err) {
+          console.error('Erreur lors de la sauvegarde automatique:', err);
+          updateSaveStatus('Erreur de sauvegarde', false);
+        }
+      }
+
+      function debouncedSave() {
+        updateSaveStatus('Saisie en cours...', true);
+        clearTimeout(saveTimeout);
+        saveTimeout = setTimeout(saveToLocalStorage, 500);
+      }
+
+      function loadFromLocalStorage() {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return false;
+        try {
+          const draftObj = JSON.parse(raw);
+          if (!draftObj) return false;
+
+          // Restore static fields
+          if (draftObj.fields && contentForm) {
+            Object.keys(draftObj.fields).forEach(name => {
+              const el = contentForm.querySelector(`[name="${name}"]`);
+              if (el) el.value = draftObj.fields[name];
+            });
+          }
+
+          // Restore Heroes
+          if (draftObj.heroes && Array.isArray(draftObj.heroes) && draftObj.heroes.length > 0) {
+            heroesContainer.innerHTML = '';
+            draftObj.heroes.forEach((h, idx) => {
+              heroesContainer.appendChild(createHeroBlock(h, idx + 1));
+            });
+          }
+
+          // Restore Categories
+          if (draftObj.categories && Array.isArray(draftObj.categories) && draftObj.categories.length > 0) {
+            categoriesContainer.innerHTML = '';
+            draftObj.categories.forEach((cat, idx) => {
+              categoriesContainer.appendChild(createCategoryBlock(cat, idx + 1));
+            });
+          }
+
+          // Restore Favorites
+          if (draftObj.favorites && Array.isArray(draftObj.favorites) && draftObj.favorites.length > 0) {
+            favoritesContainer.innerHTML = '';
+            draftObj.favorites.forEach((fav, idx) => {
+              favoritesContainer.appendChild(createFavoriteBlock(fav, idx + 1));
+            });
+          }
+
+          // Restore step
+          if (draftObj.currentStep && draftObj.currentStep >= 1 && draftObj.currentStep <= totalSteps) {
+            goToStep(draftObj.currentStep);
+          }
+
+          if (draftObj.timestamp) {
+            const dateObj = new Date(draftObj.timestamp);
+            const timeStr = dateObj.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+            updateSaveStatus(`Brouillon restauré (${timeStr})`, false);
+          }
+
+          return true;
+        } catch (e) {
+          console.error("Erreur de restauration du brouillon:", e);
+          return false;
+        }
+      }
+
+      // Attach global form listeners
+      if (contentForm) {
+        contentForm.addEventListener('input', debouncedSave);
+        contentForm.addEventListener('change', saveToLocalStorage);
+      }
+
+      // Reset Step handler
+      if (btnResetStep) {
+        btnResetStep.addEventListener('click', function() {
+          if (!confirm(`Voulez-vous vraiment effacer les informations de l'étape ${currentStep} ?`)) return;
+
+          const activeContent = document.querySelector(`[data-step-content="${currentStep}"]`);
+          if (activeContent) {
+            const inputs = activeContent.querySelectorAll('input, textarea, select');
+            inputs.forEach(input => input.value = '');
+
+            if (currentStep === 2) {
+              initializeDynamicHeroes();
+            } else if (currentStep === 3) {
+              initializeDynamicCategories();
+            } else if (currentStep === 4) {
+              initializeDynamicFavorites();
+            }
+          }
+          saveToLocalStorage();
+        });
+      }
+
+      // Reset All handler
+      if (btnResetAll) {
+        btnResetAll.addEventListener('click', function() {
+          if (!confirm("Voulez-vous vraiment TOUT effacer et réinitialiser complètement le formulaire ?")) return;
+
+          localStorage.removeItem(STORAGE_KEY);
+          if (contentForm) contentForm.reset();
+          
+          initializeDynamicHeroes();
+          initializeDynamicCategories();
+          initializeDynamicFavorites();
+          
+          goToStep(1);
+          updateSaveStatus('Formulaire réinitialisé', false);
+        });
+      }
+
+      // Save Step handler
+      if (btnSaveStep) {
+        btnSaveStep.addEventListener('click', function() {
+          saveToLocalStorage();
+          const timeStr = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          updateSaveStatus(`Section ${currentStep} enregistrée (${timeStr})`, false);
+          
+          btnSaveStep.style.backgroundColor = '#22c55e';
+          btnSaveStep.style.color = '#ffffff';
+          setTimeout(() => {
+            btnSaveStep.style.backgroundColor = '';
+            btnSaveStep.style.color = '';
+          }, 800);
+        });
+      }
+
+      // Export JSON draft handler
+      if (btnExportJson) {
+        btnExportJson.addEventListener('click', function() {
+          saveToLocalStorage();
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) {
+            alert("Aucun brouillon enregistré à exporter.");
+            return;
+          }
+          const blob = new Blob([raw], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `brouillon_unibelle_${new Date().toISOString().slice(0, 10)}.json`;
+          a.click();
+          URL.revokeObjectURL(url);
+        });
+      }
+
+      // Import JSON draft handler
+      if (btnImportJson && importJsonFile) {
+        btnImportJson.addEventListener('click', function() {
+          importJsonFile.click();
+        });
+
+        importJsonFile.addEventListener('change', function(e) {
+          const file = e.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = function(evt) {
+            try {
+              const jsonContent = evt.target.result;
+              JSON.parse(jsonContent);
+              localStorage.setItem(STORAGE_KEY, jsonContent);
+              loadFromLocalStorage();
+              alert("Brouillon réimporté et restauré avec succès !");
+            } catch (err) {
+              alert("Erreur : Le fichier sélectionné n'est pas un fichier JSON valide.");
+            }
+          };
+          reader.readAsText(file);
+          importJsonFile.value = '';
+        });
+      }
+
       // ═══════════════════════════════════════
       // DYNAMIC HERO BANNERS DATA & LOGIC
       // ═══════════════════════════════════════
@@ -618,6 +909,7 @@
           removeBtn.addEventListener('click', () => {
             block.remove();
             recalculateHeroNumbers();
+            saveToLocalStorage();
           });
         }
         
@@ -645,6 +937,7 @@
       document.getElementById('btn-add-hero').addEventListener('click', () => {
         const count = heroesContainer.querySelectorAll('.hero-block').length;
         heroesContainer.appendChild(createHeroBlock({ title: '', btnText: '' }, count + 1));
+        saveToLocalStorage();
         
         setTimeout(() => {
           const blocks = heroesContainer.querySelectorAll('.hero-block');
@@ -693,6 +986,7 @@
         
         row.querySelector('.btn-remove-product').addEventListener('click', () => {
           row.remove();
+          saveToLocalStorage();
         });
         
         return row;
@@ -734,11 +1028,13 @@
         
         addProdBtn.addEventListener('click', () => {
           prodList.appendChild(createProductRow());
+          saveToLocalStorage();
         });
         
         removeCatBtn.addEventListener('click', () => {
           block.remove();
           recalculateCategoryNumbers();
+          saveToLocalStorage();
         });
         
         return block;
@@ -765,6 +1061,7 @@
       document.getElementById('btn-add-category').addEventListener('click', () => {
         const count = categoriesContainer.querySelectorAll('.category-block').length;
         categoriesContainer.appendChild(createCategoryBlock({ name: '', products: [] }, count + 1));
+        saveToLocalStorage();
         
         setTimeout(() => {
           const blocks = categoriesContainer.querySelectorAll('.category-block');
@@ -814,6 +1111,7 @@
           removeBtn.addEventListener('click', () => {
             block.remove();
             recalculateFavoriteNumbers();
+            saveToLocalStorage();
           });
         }
         
@@ -841,6 +1139,7 @@
       document.getElementById('btn-add-favorite').addEventListener('click', () => {
         const count = favoritesContainer.querySelectorAll('.favorite-block').length;
         favoritesContainer.appendChild(createFavoriteBlock({ name: '', price: '', shade: '' }, count + 1));
+        saveToLocalStorage();
         
         setTimeout(() => {
           const blocks = favoritesContainer.querySelectorAll('.favorite-block');
@@ -851,6 +1150,9 @@
 
       // Initialize Favorites
       initializeDynamicFavorites();
+
+      // Load any existing draft from LocalStorage
+      loadFromLocalStorage();
 
       // ═══════════════════════════════════════
       // STEP NAVIGATION LOGIC
@@ -899,6 +1201,8 @@
           nextBtn.style.display = 'inline-flex';
           exportBtn.style.display = 'none';
         }
+
+        saveToLocalStorage();
       }
       
       function goToStep(step) {

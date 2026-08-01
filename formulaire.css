@@ -802,6 +802,141 @@ textarea {
   }
 }
 
+
+/* ==========================================================================
+   AUTO-SAVE & DRAFT MANAGEMENT STYLES
+   ========================================================================== */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.save-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #1e7e34;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 500;
+  transition: var(--transition-smooth);
+}
+
+.save-status-badge.saving {
+  background: #fffbe6;
+  border-color: #ffe58f;
+  color: #d48806;
+}
+
+.save-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.save-status-badge.saving .save-status-dot {
+  background-color: #faad14;
+  animation: pulse-dot 1s infinite alternate;
+}
+
+@keyframes pulse-dot {
+  0% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+.btn-reset-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff0f0;
+  color: #d32f2f;
+  border: 1px solid #ffcdd2;
+  padding: 8px 14px;
+  border-radius: var(--border-radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.btn-reset-all:hover {
+  background: #d32f2f;
+  color: #ffffff;
+  border-color: #d32f2f;
+}
+
+.btn-reset-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid var(--brand-gray-300);
+  color: var(--brand-gray-500);
+  padding: 10px 16px;
+  border-radius: var(--border-radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: auto;
+  transition: var(--transition-smooth);
+}
+
+.btn-reset-step:hover {
+  background: #fff0f0;
+  color: #d32f2f;
+  border-color: #ffcdd2;
+}
+
+.btn-save-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+  padding: 10px 16px;
+  border-radius: var(--border-radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.btn-save-step:hover {
+  background: #22c55e;
+  color: #ffffff;
+  border-color: #22c55e;
+}
+
+.btn-draft-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f8fafc;
+  color: var(--brand-gray-700);
+  border: 1px solid var(--brand-gray-300);
+  padding: 8px 12px;
+  border-radius: var(--border-radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.btn-draft-action:hover {
+  background: var(--brand-primary-light);
+  color: var(--brand-primary);
+  border-color: var(--brand-primary-light);
+}
+
 /* ==========================================================================
    PRINT SPECIFIC STYLES — For high-fidelity vector PDF export
    ========================================================================== */
